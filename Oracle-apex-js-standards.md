@@ -13,6 +13,8 @@ This document provides a comprehensive guide to JavaScript and jQuery coding sta
     utils.js
   /css/
     styles.css
+  /images/
+    user-image.png
 ```
 
 Place custom JS and CSS files in the `web` folder and reference them in APEX via shared components.
