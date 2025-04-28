@@ -1,6 +1,6 @@
 # Oracle APEX JavaScript & jQuery Coding Standards Cookbook
 
-This document provides a comprehensive guide to JavaScript and jQuery coding standards and best practices for developers working in Oracle APEX environments. The goal is to maintain consistency, readability, and maintainability across all codebases.
+This document provides a comprehensive guide to JavaScript and jQuery coding standards and best practices for developers working in Oracle APEX environments. The goal is to maintain consistency, readability, maintainability, and security across all codebases.
 
 ---
 
@@ -111,7 +111,44 @@ apex.server.process("MY_PROCESS", {
 
 ---
 
+## 📦 Managing JavaScript & jQuery Versions Locally (Strict Security - No External References)
+
+- **Always download and host** the latest **Long Term Support (LTS)** versions of libraries like **jQuery** **locally** inside your project — **never load from public URLs or CDNs**.
+- **Reason**: External resources can be changed, hijacked, or go offline, posing serious **security risks** to your APEX applications.
+
+### Folder Structure Example
+```
+/web/
+  /js/
+    jquery-3.7.1.min.js
+    custom.js
+    utils.js
+```
+
+### How to Reference Local JavaScript Files Securely
+- Upload libraries into **Shared Components → Static Application Files**, or place them directly inside your server’s `/web/js/` folder.
+- Reference them **only** through internal APEX file URLs:
+```html
+<script src="#APP_IMAGES#js/jquery-3.7.1.min.js"></script>
+<script src="#APP_IMAGES#js/custom.js"></script>
+```
+*(Assuming your `/web/` path is exposed via `#APP_IMAGES#` substitution string.)*
+
+### Strict Security Guidelines
+- **No external `<script>` tags** from CDNs like Google, jsDelivr, unpkg, etc.
+- **No runtime external downloads** of any scripts.
+- Validate file integrity yourself before adding any third-party library.
+- Document the library source, version, and checksum (if applicable) for future audits.
+
+### Version Update Policy
+- Update libraries **only** after downloading new LTS versions manually from the official source.
+- Review change logs and test in a safe environment before promoting to production.
+- Use clear versioned filenames, e.g., `jquery-3.7.1.min.js`, to avoid accidental overwrites.
+
+---
+
 ## Debugging & Logging
+
 - Use `console.log()` during development.
 - Remove all debugging logs before production.
 - Use `apex.debug()` for APEX-specific logging.
@@ -119,6 +156,7 @@ apex.server.process("MY_PROCESS", {
 ---
 
 ## Avoid
+
 - Inline JavaScript in HTML attributes (e.g., `onclick`).
 - Direct DOM manipulation unless necessary.
 - Using `eval()`.
@@ -127,11 +165,13 @@ apex.server.process("MY_PROCESS", {
 ---
 
 ## Security
+
 - Escape dynamic HTML content using `apex.util.escapeHTML()`.
 - Use APEX APIs for item values to prevent injection.
 - Sanitize all inputs if doing manual DOM updates.
 
 ---
+
 ## HTML & CSS Coding Standards
 
 ### HTML
@@ -178,6 +218,7 @@ apex.server.process("MY_PROCESS", {
 ---
 
 ## Version Control Tips
+
 - Commit small, well-defined changes.
 - Include comments in commit messages.
 - Use meaningful branch names: `feature/button-handler`, `bugfix/item-null-check`.
@@ -219,6 +260,9 @@ apex.server.process("MY_PROCESS", {
 ---
 
 ## References
-- [Oracle APEX JavaScript API](https://docs.oracle.com/en/database/oracle/apex/)
-- [jQuery API Documentation](https://api.jquery.com/)
-- [MDN JavaScript Guide](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide)
+
+- [Oracle APEX JavaScript API (Internal Use Only)]
+- [jQuery API Documentation (Use downloaded copy)]
+- [MDN JavaScript Guide (For offline learning resources)]
+
+---
