@@ -190,31 +190,6 @@ apex.server.process("MY_PROCESS", {
 </section>
 ```
 
-### CSS
-- Use external CSS files; avoid inline or embedded styles.
-- Use BEM (Block Element Modifier) naming convention:
-  - `.block`, `.block__element`, `.block--modifier`
-- Group related styles together.
-- Keep CSS organized by layout sections or components.
-- Use variables and consistent units (`rem`, `%`, `em` over `px` where appropriate).
-
-#### Example
-```css
-.user-profile {
-  padding: 1rem;
-  background-color: #f5f5f5;
-}
-
-.user-profile__image {
-  width: 100px;
-  height: auto;
-}
-
-.user-profile--highlighted {
-  border: 2px solid #007cc2;
-}
-```
-
 ---
 
 ## Version Control Tips
